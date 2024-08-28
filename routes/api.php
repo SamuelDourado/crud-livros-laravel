@@ -7,6 +7,4 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 // })->middleware('auth:sanctum');
 
-// Route::apiResource();
-
-Route::get('livros', [\App\Http\Controllers\API\LivrosController::class, 'index']);
+Route::apiResource('livros', \App\Http\Controllers\API\LivrosController::class);
