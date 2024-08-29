@@ -1,15 +1,32 @@
 GET http://127.0.0.1/api/livros
 
-GET http://127.0.0.1/api/livros/1
+GET http://127.0.0.1/api/livros/2
 
 POST http://127.0.0.1/api/livros
 Content-Type: application/json
 Accept: application/json
 
 {
-  "codL" : "1234",
+  "codL" : "123",
   "titulo" : "Meu livro",
   "editora" : "Panini",
   "edicao" : 1,
   "anoPublicacao" : 2024
 }
+
+PUT http://127.0.0.1/api/livros/5
+Content-Type: application/json
+Accept: application/json
+
+{
+
+  "codL" : "11111",
+  "titulo" : "Meu livro",
+  "editora" : "Panini",
+  "edicao" : 1,
+  "anoPublicacao" : 2024
+}
+
+DELETE  http://127.0.0.1/api/livros/1
+
+GET http://127.0.0.1/api/relatorio
