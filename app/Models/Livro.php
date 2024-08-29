@@ -14,6 +14,12 @@ class Livro extends Model
         'titulo',
         'editora',
         'edicao',
-        'anoPublicacao'
+        'anoPublicacao',
+        'valor'
     ];
+
+    public function assuntos()
+    {
+        return $this->belongsToMany(Assunto::class, 'livros_assuntos');
+    }
 }

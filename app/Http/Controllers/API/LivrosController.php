@@ -8,7 +8,9 @@ use App\Http\Requests\LivroUpdateRequest;
 use App\Http\Resources\LivroCollection;
 use App\Http\Resources\LivroResource;
 use App\Models\Livro;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LivrosController extends Controller
 {
@@ -24,19 +26,42 @@ class LivrosController extends Controller
 
     public function store(LivroPostRequest $request)
     {
-        $userData = $request->validated();
-        $livro = Livro::create($userData);
-        return new LivroResource($livro);
+        try {
+            $userData = $request->validated();
+            $livro = Livro::create($userData);
+            return new LivroResource($livro);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->errors()], 422);
+        } catch (QueryException $e) {
+            return response()->json(['error' => 'Erro ao salvar no banco de dados.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erro inesperado.'], 500);
+        }
     }
 
     public function update(LivroUpdateRequest $request, Livro $livro)
     {
-        $livro->update($request->validated());
+        try {
+            $livro->update($request->validated());
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (QueryException $e) {
+            return response()->json(['error' => 'Erro ao atualizar dado no banco de dados.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erro inesperado.'], 500);
+        }
     }
 
     public function destroy(Livro $livro)
     {
-        $livro->delete();
-        return response()->noContent();
+        try {
+            $livro->delete();
+            return response()->noContent();
+        } catch (QueryException $e) {
+            return response()->json(['error' => 'Erro ao excluir registro no banco de dados.'], 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erro inesperado.'], 500);
+        }
+
     }
 }

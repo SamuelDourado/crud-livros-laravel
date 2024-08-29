@@ -8,3 +8,5 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::apiResource('livros', \App\Http\Controllers\API\LivrosController::class);
+
+Route::get('relatorio', [\App\Http\Controllers\LivroRelatorioController::class, 'export']);
