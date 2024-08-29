@@ -1,1 +1,15 @@
 GET http://127.0.0.1/api/livros
+
+GET http://127.0.0.1/api/livros/1
+
+POST http://127.0.0.1/api/livros
+Content-Type: application/json
+Accept: application/json
+
+{
+  "codL" : "1234",
+  "titulo" : "Meu livro",
+  "editora" : "Panini",
+  "edicao" : 1,
+  "anoPublicacao" : 2024
+}
